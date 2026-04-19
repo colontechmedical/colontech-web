@@ -1,951 +1,1507 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Colontech Medical – Advanced Colon Hydrotherapy System</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0a0e2a;
-    --navy-mid: #0f1535;
-    --navy-light: #1a2155;
-    --blue-accent: #4a6cf7;
-    --blue-bright: #6b8fff;
-    --teal: #00c6c6;
-    --white: #f8f9ff;
-    --off-white: #c8cfe8;
-    --text-muted: #8892b0;
-    --border: rgba(74, 108, 247, 0.25);
-    --glow: rgba(74, 108, 247, 0.15);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; font-size: 16px; }
-
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1.1rem 4vw;
-    background: rgba(10, 14, 42, 0.85);
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid var(--border);
-    transition: background 0.3s;
-  }
-
-  .nav-logo {
-    display: flex; align-items: center; gap: 0.7rem;
-    text-decoration: none;
-  }
-
-  .nav-logo svg { width: 36px; height: 36px; }
-
-  .nav-logo-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.35rem; font-weight: 700;
-    color: var(--white); letter-spacing: 0.03em;
-    line-height: 1.1;
-  }
-
-  .nav-logo-text span { display: block; font-size: 0.65rem; font-weight: 400;
-    color: var(--blue-accent); letter-spacing: 0.18em; text-transform: uppercase; }
-
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-
-  .nav-links a {
-    text-decoration: none; color: var(--off-white);
-    font-size: 0.875rem; font-weight: 400; letter-spacing: 0.06em;
-    text-transform: uppercase;
-    position: relative; padding-bottom: 3px;
-    transition: color 0.25s;
-  }
-
-  .nav-links a::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 100%;
-    height: 1px; background: var(--blue-accent);
-    transition: right 0.3s ease;
-  }
-
-  .nav-links a:hover { color: var(--white); }
-  .nav-links a:hover::after { right: 0; }
-
-  .nav-cta {
-    background: var(--blue-accent); color: #fff !important;
-    padding: 0.5rem 1.4rem !important; border-radius: 2rem;
-    transition: background 0.25s, transform 0.2s !important;
-  }
-
-  .nav-cta:hover { background: var(--blue-bright) !important; transform: translateY(-1px); }
-  .nav-cta::after { display: none !important; }
-
-  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-  .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s; }
-
-  /* ── HERO ── */
-  #home {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 8rem 4vw 5rem;
-    position: relative; overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background:
-      radial-gradient(ellipse 70% 60% at 70% 50%, rgba(74,108,247,0.12) 0%, transparent 65%),
-      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,198,198,0.07) 0%, transparent 60%),
-      linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
-  }
-
-  .hero-grid-lines {
-    position: absolute; inset: 0; z-index: 0; opacity: 0.04;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-
-  .hero-content { position: relative; z-index: 1; max-width: 640px; }
-
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 0.6rem;
-    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--teal); margin-bottom: 1.5rem;
-  }
-
-  .hero-eyebrow::before {
-    content: ''; width: 28px; height: 1px; background: var(--teal);
-  }
-
-  h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.8rem, 6vw, 5rem);
-    font-weight: 700; line-height: 1.05;
-    color: var(--white); margin-bottom: 1.5rem;
-  }
-
-  h1 em { font-style: normal; color: var(--blue-bright); }
-
-  .hero-desc {
-    font-size: 1.05rem; line-height: 1.75;
-    color: var(--off-white); max-width: 520px; margin-bottom: 2.5rem;
-  }
-
-  .hero-badges {
-    display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.8rem;
-  }
-
-  .badge {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    font-size: 0.78rem; color: var(--blue-bright);
-    border: 1px solid var(--border);
-    padding: 0.35rem 0.9rem; border-radius: 2rem;
-    background: var(--glow); letter-spacing: 0.04em;
-  }
-
-  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: var(--blue-accent); color: #fff;
-    padding: 0.85rem 2rem; border-radius: 3rem;
-    font-size: 0.9rem; font-weight: 500; text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
-    box-shadow: 0 4px 28px rgba(74,108,247,0.35);
-  }
-
-  .btn-primary:hover { background: var(--blue-bright); transform: translateY(-2px);
-    box-shadow: 0 8px 36px rgba(74,108,247,0.45); }
-
-  .btn-outline {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    border: 1px solid var(--border); color: var(--off-white);
-    padding: 0.85rem 2rem; border-radius: 3rem;
-    font-size: 0.9rem; font-weight: 400; text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: border-color 0.25s, color 0.25s, transform 0.2s;
-  }
-
-  .btn-outline:hover { border-color: var(--blue-accent); color: var(--white);
-    transform: translateY(-2px); }
-
-  .hero-visual {
-    position: absolute; right: 4vw; top: 50%; transform: translateY(-50%);
-    z-index: 1; width: min(500px, 46vw);
-  }
-
-  .device-frame {
-    width: 100%; border-radius: 1.5rem;
-    border: 1px solid var(--border);
-    overflow: hidden; position: relative;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 60px rgba(74,108,247,0.12);
-  }
-
-  .device-frame img { width: 100%; display: block; object-fit: cover; }
-
-  .device-glow {
-    position: absolute; inset: -2px; border-radius: 1.6rem;
-    background: linear-gradient(135deg, rgba(74,108,247,0.3), transparent, rgba(0,198,198,0.15));
-    pointer-events: none;
-  }
-
-  /* ── STATS BAR ── */
-  .stats-bar {
-    background: var(--navy-light);
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 2rem 4vw;
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
-  }
-
-  .stat-item { text-align: center; }
-
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem; font-weight: 700;
-    color: var(--blue-bright); line-height: 1;
-  }
-
-  .stat-label { font-size: 0.78rem; color: var(--text-muted); letter-spacing: 0.08em;
-    text-transform: uppercase; margin-top: 0.3rem; }
-
-  /* ── SECTIONS COMMON ── */
-  section { padding: 6rem 4vw; }
-
-  .section-tag {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--blue-accent); margin-bottom: 1rem;
-  }
-
-  .section-tag::before { content: ''; width: 20px; height: 1px; background: var(--blue-accent); }
-
-  h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 700; line-height: 1.1;
-    color: var(--white); margin-bottom: 1.2rem;
-  }
-
-  h2 span { color: var(--blue-bright); }
-
-  .lead-text {
-    font-size: 1rem; line-height: 1.8;
-    color: var(--off-white); max-width: 600px;
-    margin-bottom: 3rem;
-  }
-
-  /* ── ABOUT ── */
-  #about { background: var(--navy-mid); }
-
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
-  }
-
-  .about-images { position: relative; }
-
-  .img-stack { position: relative; }
-
-  .img-main {
-    width: 100%; border-radius: 1.2rem;
-    border: 1px solid var(--border);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    object-fit: cover;
-  }
-
-  .img-accent {
-    position: absolute; bottom: -1.5rem; right: -1.5rem;
-    width: 55%; border-radius: 1rem;
-    border: 2px solid var(--navy-mid);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-    object-fit: cover;
-  }
-
-  .about-content { }
-
-  .feature-list { display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2.5rem; }
-
-  .feature-item {
-    display: flex; gap: 1rem; align-items: flex-start;
-    padding: 1.2rem 1.4rem;
-    background: rgba(74,108,247,0.06);
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    transition: background 0.25s, border-color 0.25s;
-  }
-
-  .feature-item:hover { background: rgba(74,108,247,0.12); border-color: var(--blue-accent); }
-
-  .feature-icon {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: var(--blue-accent);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    font-size: 1.1rem;
-  }
-
-  .feature-text h4 { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 0.25rem; }
-  .feature-text p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
-
-  /* ── BENEFITS ── */
-  #benefits { background: var(--navy); }
-
-  .benefits-header { text-align: center; margin-bottom: 3.5rem; }
-  .benefits-header .lead-text { margin-left: auto; margin-right: auto; }
-
-  .benefits-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-
-  @media (max-width: 600px) {
-    .benefits-grid { grid-template-columns: 1fr; }
-  }
-
-  .benefit-card {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 1.2rem;
-    padding: 2rem 1.8rem;
-    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-    position: relative; overflow: hidden;
-  }
-
-  .benefit-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--blue-accent), transparent);
-    opacity: 0; transition: opacity 0.3s;
-  }
-
-  .benefit-card:hover { transform: translateY(-4px);
-    box-shadow: 0 16px 50px rgba(74,108,247,0.18);
-    border-color: rgba(74,108,247,0.5); }
-
-  .benefit-card:hover::before { opacity: 1; }
-
-  .benefit-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.5rem; font-weight: 700;
-    color: rgba(74,108,247,0.25); line-height: 1;
-    margin-bottom: 0.75rem;
-  }
-
-  .benefit-card h3 { font-size: 1.05rem; font-weight: 600; color: var(--white); margin-bottom: 0.6rem; }
-  .benefit-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.7; }
-
-  /* ── WATER SYSTEM ── */
-  .water-section {
-    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%);
-    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    padding: 5rem 4vw; text-align: center;
-  }
-
-  .filtration-steps {
-    display: flex; justify-content: center; flex-wrap: wrap;
-    gap: 0; margin-top: 3rem; position: relative;
-  }
-
-  .filtration-steps::before {
-    content: ''; position: absolute;
-    top: 50%; left: 10%; right: 10%; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--blue-accent), transparent);
-    transform: translateY(-50%); z-index: 0;
-  }
-
-  .filter-step {
-    display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
-    padding: 0 1.5rem; position: relative; z-index: 1;
-  }
-
-  .filter-dot {
-    width: 48px; height: 48px; border-radius: 50%;
-    background: var(--navy);
-    border: 2px solid var(--blue-accent);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-    box-shadow: 0 0 20px rgba(74,108,247,0.3);
-  }
-
-  .filter-label { font-size: 0.78rem; color: var(--off-white); text-align: center; line-height: 1.3; font-weight: 500; }
-
-  /* ── SPECS ── */
-  .specs-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.2rem; margin-top: 3rem;
-  }
-
-  .spec-card {
-    border: 1px solid var(--border);
-    border-radius: 1rem; padding: 1.8rem 1.5rem;
-    text-align: center;
-    background: rgba(74,108,247,0.04);
-  }
-
-  .spec-icon { font-size: 2rem; margin-bottom: 0.8rem; }
-  .spec-card h4 { font-size: 1rem; font-weight: 600; color: var(--blue-bright); margin-bottom: 0.4rem; }
-  .spec-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.5; }
-
-  /* ── CONTACT ── */
-  #contact { background: var(--navy-mid); }
-
-  .contact-layout {
-    display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start;
-  }
-
-  .contact-info h2 { margin-bottom: 1rem; }
-
-  .contact-detail {
-    display: flex; align-items: flex-start; gap: 1rem;
-    padding: 1.2rem 0; border-bottom: 1px solid var(--border);
-  }
-
-  .contact-detail:last-of-type { border-bottom: none; }
-
-  .contact-detail-icon {
-    width: 38px; height: 38px; flex-shrink: 0;
-    background: var(--glow); border: 1px solid var(--border);
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-  }
-
-  .contact-detail-text h4 { font-size: 0.78rem; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.3rem; }
-  .contact-detail-text p, .contact-detail-text a {
-    font-size: 0.92rem; color: var(--off-white); line-height: 1.5;
-    text-decoration: none;
-  }
-  .contact-detail-text a:hover { color: var(--blue-bright); }
-
-  /* ── FORM ── */
-  .contact-form-wrap {
-    background: var(--navy);
-    border: 1px solid var(--border);
-    border-radius: 1.5rem;
-    padding: 2.5rem;
-  }
-
-  .form-title { font-family: 'Cormorant Garamond', serif;
-    font-size: 1.6rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
-  .form-subtitle { font-size: 0.84rem; color: var(--text-muted); margin-bottom: 2rem; }
-
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-
-  .form-group { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.2rem; }
-
-  .form-group label {
-    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--text-muted);
-  }
-
-  .form-group input, .form-group textarea {
-    background: var(--navy-mid);
-    border: 1px solid var(--border);
-    border-radius: 0.6rem;
-    padding: 0.8rem 1rem;
-    color: var(--white); font-family: 'DM Sans', sans-serif;
-    font-size: 0.92rem;
-    transition: border-color 0.25s, box-shadow 0.25s;
-    outline: none; width: 100%;
-  }
-
-  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(136,146,176,0.5); }
-
-  .form-group input:focus, .form-group textarea:focus {
-    border-color: var(--blue-accent);
-    box-shadow: 0 0 0 3px rgba(74,108,247,0.12);
-  }
-
-  .form-group textarea { resize: vertical; min-height: 90px; }
-
-  .form-optional { font-size: 0.72rem; color: var(--text-muted); margin-left: 0.3rem; font-weight: 400; text-transform: none; letter-spacing: 0; }
-
-  .btn-submit {
-    width: 100%; padding: 1rem;
-    background: var(--blue-accent); color: #fff;
-    border: none; border-radius: 0.6rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem; font-weight: 500; letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
-    box-shadow: 0 4px 24px rgba(74,108,247,0.3);
-    display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-  }
-
-  .btn-submit:hover { background: var(--blue-bright); transform: translateY(-1px);
-    box-shadow: 0 8px 32px rgba(74,108,247,0.45); }
-
-  .form-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 1rem;
-    text-align: center; line-height: 1.5; }
-
-  .spinner {
-    display: inline-block; width: 16px; height: 16px;
-    border: 2px solid rgba(255,255,255,0.3);
-    border-top-color: #fff; border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    vertical-align: middle;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* ── SUCCESS TOAST ── */
-  #toast {
-    position: fixed; bottom: 2rem; right: 2rem; z-index: 9999;
-    background: #1a3a1a; border: 1px solid #2a8a2a;
-    color: #90ee90; padding: 1rem 1.5rem;
-    border-radius: 0.75rem; font-size: 0.9rem;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-    opacity: 0; transform: translateY(10px);
-    transition: opacity 0.3s, transform 0.3s;
-    pointer-events: none;
-  }
-  #toast.show { opacity: 1; transform: translateY(0); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy);
-    border-top: 1px solid var(--border);
-    padding: 2.5rem 4vw;
-    display: flex; align-items: center; justify-content: space-between;
-    flex-wrap: wrap; gap: 1rem;
-  }
-
-  .footer-brand {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem; font-weight: 700; color: var(--off-white);
-  }
-
-  .footer-links { display: flex; gap: 2rem; list-style: none; }
-  .footer-links a { text-decoration: none; color: var(--text-muted);
-    font-size: 0.82rem; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--blue-bright); }
-
-  .footer-copy { font-size: 0.78rem; color: var(--text-muted); }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .hero-visual { display: none; }
-    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .img-accent { width: 40%; }
-    .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
-    .filtration-steps::before { display: none; }
-  }
-
-  @media (max-width: 600px) {
-    nav { padding: 1rem 5vw; }
-    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0;
-      flex-direction: column; gap: 0;
-      background: var(--navy-mid); border-bottom: 1px solid var(--border);
-      padding: 1rem 5vw;
-    }
-    .nav-links.open { display: flex; }
-    .nav-links a { padding: 0.75rem 0; display: block; }
-    .hamburger { display: flex; }
-    .form-row { grid-template-columns: 1fr; }
-    .stats-bar { grid-template-columns: repeat(2, 1fr); }
-    h1 { font-size: 2.5rem; }
-    section { padding: 4rem 5vw; }
-    .filtration-steps { gap: 1rem; }
-    footer { flex-direction: column; text-align: center; }
-    .footer-links { justify-content: center; }
-  }
-
-  /* ── ANIMATIONS ── */
-  .fade-in {
-    opacity: 0; transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
-  .fade-in:nth-child(2) { transition-delay: 0.1s; }
-  .fade-in:nth-child(3) { transition-delay: 0.2s; }
-  .fade-in:nth-child(4) { transition-delay: 0.3s; }
-  .fade-in:nth-child(5) { transition-delay: 0.4s; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colontech Medical – Advanced Colon Hydrotherapy System</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a0e2a;
+            --navy-mid: #0f1535;
+            --navy-light: #1a2155;
+            --blue-accent: #4a6cf7;
+            --blue-bright: #6b8fff;
+            --teal: #00c6c6;
+            --white: #f8f9ff;
+            --off-white: #c8cfe8;
+            --text-muted: #8892b0;
+            --border: rgba(74, 108, 247, 0.25);
+            --glow: rgba(74, 108, 247, 0.15);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            background: var(--navy);
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.1rem 4vw;
+            background: rgba(10, 14, 42, 0.85);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo img {
+            height: 72px;
+            /* slightly larger, not oversized */
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            /* makes logo pure white */
+            image-rendering: -webkit-optimize-contrast;
+            /* improves sharpness */
+        }
+
+        nav {
+            height: 85px;
+            /* adjust navbar proportionally */
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            transform: scale(1.2);
+            margin-left: 10px;
+            /* boosts visual size */
+        }
+
+        .nav-logo img {
+            height: 90px;
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-logo img {
+            transform: translateZ(0);
+            /* forces GPU rendering */
+        }
+
+        .brand-text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-left: 10px;
+            color: white;
+        }
+
+        .nav-logo {
+            margin-left: 8px;
+        }
+
+        .nav-logo svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .nav-logo-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.03em;
+            line-height: 1.1;
+        }
+
+        .nav-logo-text span {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 400;
+            color: var(--blue-accent);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--off-white);
+            font-size: 0.875rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 3px;
+            transition: color 0.25s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 100%;
+            height: 1px;
+            background: var(--blue-accent);
+            transition: right 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-links a:hover::after {
+            right: 0;
+        }
+
+        .nav-cta {
+            background: var(--blue-accent);
+            color: #fff !important;
+            padding: 0.5rem 1.4rem !important;
+            border-radius: 2rem;
+            transition: background 0.25s, transform 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--blue-bright) !important;
+            transform: translateY(-1px);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ── HERO ── */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 4vw 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 70% 60% at 70% 50%, rgba(74, 108, 247, 0.12) 0%, transparent 65%),
+                radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0, 198, 198, 0.07) 0%, transparent 60%),
+                linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%);
+        }
+
+        .hero-grid-lines {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.04;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.6) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 640px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 28px;
+            height: 1px;
+            background: var(--teal);
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 em {
+            font-style: normal;
+            color: var(--blue-bright);
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--off-white);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2.8rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            color: var(--blue-bright);
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.9rem;
+            border-radius: 2rem;
+            background: var(--glow);
+            letter-spacing: 0.04em;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--blue-accent);
+            color: #fff;
+            padding: 0.85rem 2rem;
+            border-radius: 3rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+            box-shadow: 0 4px 28px rgba(74, 108, 247, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: var(--blue-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 36px rgba(74, 108, 247, 0.45);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid var(--border);
+            color: var(--off-white);
+            padding: 0.85rem 2rem;
+            border-radius: 3rem;
+            font-size: 0.9rem;
+            font-weight: 400;
+            text-decoration: none;
+            letter-spacing: 0.04em;
+            transition: border-color 0.25s, color 0.25s, transform 0.2s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--blue-accent);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: absolute;
+            right: 4vw;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            width: min(500px, 46vw);
+        }
+
+        .device-frame {
+            width: 100%;
+            border-radius: 1.5rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 60px rgba(74, 108, 247, 0.12);
+        }
+
+        .device-frame img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .device-glow {
+            position: absolute;
+            inset: -2px;
+            border-radius: 1.6rem;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.3), transparent, rgba(0, 198, 198, 0.15));
+            pointer-events: none;
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            background: var(--navy-light);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 2rem 4vw;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--blue-bright);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        /* ── SECTIONS COMMON ── */
+        section {
+            padding: 6rem 4vw;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.72rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--blue-accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--blue-accent);
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--white);
+            margin-bottom: 1.2rem;
+        }
+
+        h2 span {
+            color: var(--blue-bright);
+        }
+
+        .lead-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--off-white);
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        /* ── ABOUT ── */
+        #about {
+            background: var(--navy-mid);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-images {
+            position: relative;
+        }
+
+        .img-stack {
+            position: relative;
+        }
+
+        .img-main {
+            width: 100%;
+            border-radius: 1.2rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+
+        .img-accent {
+            position: absolute;
+            bottom: -1.5rem;
+            right: -1.5rem;
+            width: 55%;
+            border-radius: 1rem;
+            border: 2px solid var(--navy-mid);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+
+        .about-content {}
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            padding: 1.2rem 1.4rem;
+            background: rgba(74, 108, 247, 0.06);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            transition: background 0.25s, border-color 0.25s;
+        }
+
+        .feature-item:hover {
+            background: rgba(74, 108, 247, 0.12);
+            border-color: var(--blue-accent);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--blue-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.1rem;
+        }
+
+        .feature-text h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ── BENEFITS ── */
+        #benefits {
+            background: var(--navy);
+        }
+
+        .benefits-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .benefits-header .lead-text {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 600px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .benefit-card {
+            background: var(--navy-mid);
+            border: 1px solid var(--border);
+            border-radius: 1.2rem;
+            padding: 2rem 1.8rem;
+            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--blue-accent), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(74, 108, 247, 0.18);
+            border-color: rgba(74, 108, 247, 0.5);
+        }
+
+        .benefit-card:hover::before {
+            opacity: 1;
+        }
+
+        .benefit-num {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: rgba(74, 108, 247, 0.25);
+            line-height: 1;
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.6rem;
+        }
+
+        .benefit-card p {
+            font-size: 0.87rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ── WATER SYSTEM ── */
+        .water-section {
+            background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 5rem 4vw;
+            text-align: center;
+        }
+
+        .filtration-steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .filtration-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blue-accent), transparent);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .filter-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .filter-dot {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--navy);
+            border: 2px solid var(--blue-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 0 20px rgba(74, 108, 247, 0.3);
+        }
+
+        .filter-label {
+            font-size: 0.78rem;
+            color: var(--off-white);
+            text-align: center;
+            line-height: 1.3;
+            font-weight: 500;
+        }
+
+        /* ── SPECS ── */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-top: 3rem;
+        }
+
+        .spec-card {
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            background: rgba(74, 108, 247, 0.04);
+        }
+
+        .spec-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .spec-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--blue-bright);
+            margin-bottom: 0.4rem;
+        }
+
+        .spec-card p {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ── CONTACT ── */
+        #contact {
+            background: var(--navy-mid);
+        }
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .contact-detail:last-of-type {
+            border-bottom: none;
+        }
+
+        .contact-detail-icon {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            background: var(--glow);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .contact-detail-text h4 {
+            font-size: 0.78rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-detail-text p,
+        .contact-detail-text a {
+            font-size: 0.92rem;
+            color: var(--off-white);
+            line-height: 1.5;
+            text-decoration: none;
+        }
+
+        .contact-detail-text a:hover {
+            color: var(--blue-bright);
+        }
+
+        /* ── FORM ── */
+        .contact-form-wrap {
+            background: var(--navy);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+        }
+
+        .form-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-subtitle {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: var(--navy-mid);
+            border: 1px solid var(--border);
+            border-radius: 0.6rem;
+            padding: 0.8rem 1rem;
+            color: var(--white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(136, 146, 176, 0.5);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--blue-accent);
+            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.12);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-optional {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-left: 0.3rem;
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--blue-accent);
+            color: #fff;
+            border: none;
+            border-radius: 0.6rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+            box-shadow: 0 4px 24px rgba(74, 108, 247, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .btn-submit:hover {
+            background: var(--blue-bright);
+            transform: translateY(-1px);
+            box-shadow: 0 8px 32px rgba(74, 108, 247, 0.45);
+        }
+
+        .form-note {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── SUCCESS TOAST ── */
+        #toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 9999;
+            background: #1a3a1a;
+            border: 1px solid #2a8a2a;
+            color: #90ee90;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+        }
+
+        #toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--navy);
+            border-top: 1px solid var(--border);
+            padding: 2.5rem 4vw;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--off-white);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--blue-bright);
+        }
+
+        .footer-copy {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .hero-visual {
+                display: none;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .img-accent {
+                width: 40%;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filtration-steps::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 1rem 5vw;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: var(--navy-mid);
+                border-bottom: 1px solid var(--border);
+                padding: 1rem 5vw;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 0.75rem 0;
+                display: block;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            section {
+                padding: 4rem 5vw;
+            }
+
+            .filtration-steps {
+                gap: 1rem;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        /* ── ANIMATIONS ── */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .fade-in:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .fade-in:nth-child(4) {
+            transition-delay: 0.3s;
+        }
+
+        .fade-in:nth-child(5) {
+            transition-delay: 0.4s;
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav id="navbar">
-  <a href="#home" class="nav-logo">
-    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="20" cy="20" r="19" stroke="#4a6cf7" stroke-width="1.5"/>
-      <path d="M12 14 C12 14 10 17 12 20 C14 23 18 22 18 25 C18 28 15 30 15 30" stroke="#4a6cf7" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-      <path d="M28 14 C28 14 30 17 28 20 C26 23 22 22 22 25 C22 28 25 30 25 30" stroke="#00c6c6" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-      <circle cx="20" cy="14" r="2.5" fill="#4a6cf7"/>
-    </svg>
-    <div class="nav-logo-text">
-      Colontech
-      <span>Medical</span>
-    </div>
-  </a>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
-  </ul>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
+    <!-- NAV -->
+    <nav id="navbar">
+        <a href="#home" class="nav-logo">
+            <img src="logo.png">
+        </a>
 
-<!-- HERO -->
-<section id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid-lines"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Colontech Medical</p>
-    <h1>Advanced <em>Colon</em><br>Hydrotherapy<br>System</h1>
-    <p class="hero-desc">
-      Redefining safe &amp; modern digestive care through a medically engineered,
-      hygienic, and patient-friendly colon hydrotherapy system — designed for
-      clinics and healthcare professionals.
-    </p>
-    <div class="hero-badges">
-      <span class="badge">✦ Innovative</span>
-      <span class="badge">✦ Hygienic</span>
-      <span class="badge">✦ Medically Engineered</span>
-      <span class="badge">✦ Made in India</span>
-    </div>
-    <div class="hero-btns">
-      <a href="#about" class="btn-primary">Explore System →</a>
-      <a href="#contact" class="btn-outline">Get in Touch</a>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="device-frame">
-      <img src="1.jpeg" alt="Colontech Medical Device">
-      <div class="device-glow"></div>
-    </div>
-  </div>
-</section>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+        </ul>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat-item fade-in">
-    <div class="stat-num">7</div>
-    <div class="stat-label">Stage Filtration</div>
-  </div>
-  <div class="stat-item fade-in">
-    <div class="stat-num">40L</div>
-    <div class="stat-label">Flow / 40 min</div>
-  </div>
-  <div class="stat-item fade-in">
-    <div class="stat-num">38–40°</div>
-    <div class="stat-label">Temperature Control</div>
-  </div>
-  <div class="stat-item fade-in">
-    <div class="stat-num">100%</div>
-    <div class="stat-label">Medical Grade</div>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="about-grid">
-    <div class="about-images fade-in">
-      <div class="img-stack">
-        <img class="img-main" src="2.jpeg" alt="Colontech System Front View">
-        <img class="img-accent" src="3.jpeg" alt="Colontech System Side View">
-      </div>
-    </div>
-    <div class="about-content fade-in">
-      <p class="section-tag">About Our System</p>
-      <h2>Built with <span>Medical Precision</span></h2>
-      <p class="lead-text">
-        Colon hydrotherapy is a medically guided process designed to gently cleanse the colon
-        using temperature-controlled purified water. Our advanced system addresses digestive
-        imbalance, constipation, and toxin buildup — providing a modern solution for modern
-        healthcare needs.
-      </p>
-      <div class="feature-list">
-        <div class="feature-item fade-in">
-          <div class="feature-icon">🌡️</div>
-          <div class="feature-text">
-            <h4>Temperature Controlled (38–40°C)</h4>
-            <p>Optimal comfort and safety for every patient with precise thermal regulation.</p>
-          </div>
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
         </div>
-        <div class="feature-item fade-in">
-          <div class="feature-icon">🛡️</div>
-          <div class="feature-text">
-            <h4>Auto Cut-Off Safety System</h4>
-            <p>Automatic protection mechanisms built-in for uncompromised clinical safety.</p>
-          </div>
-        </div>
-        <div class="feature-item fade-in">
-          <div class="feature-icon">📊</div>
-          <div class="feature-text">
-            <h4>Instant Live Report Printing</h4>
-            <p>Real-time documentation for efficient and accurate patient records.</p>
-          </div>
-        </div>
-        <div class="feature-item fade-in">
-          <div class="feature-icon">🖥️</div>
-          <div class="feature-text">
-            <h4>Fully Controlled Operation</h4>
-            <p>Complete digital control interface for medical professionals.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    </nav>
 
-  <!-- Water System -->
-  <div class="water-section" style="margin-top: 5rem; border-radius: 1.5rem;">
-    <p class="section-tag" style="justify-content: center; margin-bottom: 0.8rem;">Pure Water. Pure Safety.</p>
-    <h2>7-Stage <span>Water Purification</span></h2>
-    <p class="lead-text" style="margin: 0 auto 0; text-align: center;">
-      Ensuring medical-grade water quality for every session. Safety is not optional — it's engineered.
-    </p>
-    <div class="filtration-steps">
-      <div class="filter-step fade-in"><div class="filter-dot">🪨</div><div class="filter-label">Sediment</div></div>
-      <div class="filter-step fade-in"><div class="filter-dot">🔲</div><div class="filter-label">Pre<br>Carbon</div></div>
-      <div class="filter-step fade-in"><div class="filter-dot">⬛</div><div class="filter-label">Post<br>Carbon</div></div>
-      <div class="filter-step fade-in"><div class="filter-dot">🔘</div><div class="filter-label">GAC<br>Carbon</div></div>
-      <div class="filter-step fade-in"><div class="filter-dot">☀️</div><div class="filter-label">UV</div></div>
-      <div class="filter-step fade-in"><div class="filter-dot">🔬</div><div class="filter-label">UF</div></div>
-      <div class="filter-step fade-in"><div class="filter-dot">💧</div><div class="filter-label">Scale<br>Free</div></div>
-    </div>
-  </div>
-
-  <!-- Benefits -->
-  <div style="margin-top: 5rem;">
-    <div class="benefits-header">
-      <p class="section-tag" style="justify-content: center;">Why Choose Colontech?</p>
-      <h2>Key Benefits for <span>Patients & Clinics</span></h2>
-      <p class="lead-text" style="margin: 0 auto;">
-        Every feature is developed to provide maximum patient comfort with uncompromised safety and measurable clinical outcomes.
-      </p>
-    </div>
-    <div class="benefits-grid">
-      <div class="benefit-card fade-in">
-        <div class="benefit-num">01</div>
-        <h3>Improved Digestive Health</h3>
-        <p>Supports smoother bowel movements and reduces bloating for lasting digestive comfort.</p>
-      </div>
-      <div class="benefit-card fade-in">
-        <div class="benefit-num">02</div>
-        <h3>Enhanced Nutrient Absorption</h3>
-        <p>Helps the body absorb nutrients more efficiently after thorough colon cleansing.</p>
-      </div>
-      <div class="benefit-card fade-in">
-        <div class="benefit-num">03</div>
-        <h3>Increased Energy Levels</h3>
-        <p>Patients often report feeling lighter and revitalized following treatment sessions.</p>
-      </div>
-      <div class="benefit-card fade-in">
-        <div class="benefit-num">04</div>
-        <h3>Constipation Relief</h3>
-        <p>Effective support in chronic constipation management and fecal impaction cases.</p>
-      </div>
-      <div class="benefit-card fade-in">
-        <div class="benefit-num">05</div>
-        <h3>Pre-Procedure Preparation</h3>
-        <p>Ideal for pre-colonoscopy prep, surgical bowel preparation, and imaging procedures.</p>
-      </div>
-      <div class="benefit-card fade-in">
-        <div class="benefit-num">06</div>
-        <h3>Clinic Revenue Opportunity</h3>
-        <p>Adds a modern, in-demand wellness service to your facility with professional clinical finish.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="contact-layout">
-    <div class="contact-info">
-      <p class="section-tag">Reach Out</p>
-      <h2>Let's Build a<br><span>Healthier Tomorrow</span><br>Together</h2>
-      <p class="lead-text">
-        Ready to bring advanced colon hydrotherapy to your clinic?
-        Contact our team to learn more about the Colontech Medical system.
-      </p>
-
-      <div class="contact-detail">
-        <div class="contact-detail-icon">📍</div>
-        <div class="contact-detail-text">
-          <h4>Address</h4>
-          <p>Dev Iland Industrial Estate, Nr. Zaveri Estate,<br>
-          Odhav Industrial Estate, Kathwada,<br>
-          Ahmedabad, Gujarat – 382430</p>
+    <!-- HERO -->
+    <section id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-grid-lines"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Colontech Medical</p>
+            <h1>Advanced <em>Colon</em><br>Hydrotherapy<br>System</h1>
+            <p class="hero-desc">
+                Redefining safe &amp; modern digestive care through a medically engineered,
+                hygienic, and patient-friendly colon hydrotherapy system — designed for
+                clinics and healthcare professionals.
+            </p>
+            <div class="hero-badges">
+                <span class="badge">✦ Innovative</span>
+                <span class="badge">✦ Hygienic</span>
+                <span class="badge">✦ Medically Engineered</span>
+                <span class="badge">✦ Made in India</span>
+            </div>
+            <div class="hero-btns">
+                <a href="#about" class="btn-primary">Explore System →</a>
+                <a href="#contact" class="btn-outline">Get in Touch</a>
+            </div>
         </div>
-      </div>
-
-      <div class="contact-detail">
-        <div class="contact-detail-icon">📞</div>
-        <div class="contact-detail-text">
-          <h4>Phone</h4>
-          <a href="tel:+919898226884">+91 98982 26884</a><br>
-          <a href="tel:+919712133343">+91 97121 33343</a>
+        <div class="hero-visual">
+            <div class="device-frame">
+                <img src="1.jpeg" alt="Colontech Medical Device">
+                <div class="device-glow"></div>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <div class="contact-detail">
-        <div class="contact-detail-icon">🌐</div>
-        <div class="contact-detail-text">
-          <h4>Website</h4>
-          <a href="https://www.colontechmedical.com" target="_blank">www.colontechmedical.com</a>
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item fade-in">
+            <div class="stat-num">7</div>
+            <div class="stat-label">Stage Filtration</div>
         </div>
-      </div>
+        <div class="stat-item fade-in">
+            <div class="stat-num">40L</div>
+            <div class="stat-label">Flow / 40 min</div>
+        </div>
+        <div class="stat-item fade-in">
+            <div class="stat-num">38–40°</div>
+            <div class="stat-label">Temperature Control</div>
+        </div>
+        <div class="stat-item fade-in">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Medical Grade</div>
+        </div>
     </div>
 
-    <div class="contact-form-wrap fade-in">
-      <div class="form-title">Send an Enquiry</div>
-      <p class="form-subtitle">Fill in your details and we'll get back to you shortly via WhatsApp.</p>
-
-      <form id="contactForm" onsubmit="submitForm(event)">
-        <div class="form-row">
-          <div class="form-group">
-            <label>First Name *</label>
-            <input type="text" name="firstName" placeholder="First name" required>
-          </div>
-          <div class="form-group">
-            <label>Last Name *</label>
-            <input type="text" name="lastName" placeholder="Last name" required>
-          </div>
+    <!-- ABOUT -->
+    <section id="about">
+        <div class="about-grid">
+            <div class="about-images fade-in">
+                <div class="img-stack">
+                    <img class="img-main" src="2.jpeg" alt="Colontech System Front View">
+                    <img class="img-accent" src="3.jpeg" alt="Colontech System Side View">
+                </div>
+            </div>
+            <div class="about-content fade-in">
+                <p class="section-tag">About Our System</p>
+                <h2>Built with <span>Medical Precision</span></h2>
+                <p class="lead-text">
+                    Colon hydrotherapy is a medically guided process designed to gently cleanse the colon
+                    using temperature-controlled purified water. Our advanced system addresses digestive
+                    imbalance, constipation, and toxin buildup — providing a modern solution for modern
+                    healthcare needs.
+                </p>
+                <div class="feature-list">
+                    <div class="feature-item fade-in">
+                        <div class="feature-icon">🌡️</div>
+                        <div class="feature-text">
+                            <h4>Temperature Controlled (38–40°C)</h4>
+                            <p>Optimal comfort and safety for every patient with precise thermal regulation.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item fade-in">
+                        <div class="feature-icon">🛡️</div>
+                        <div class="feature-text">
+                            <h4>Auto Cut-Off Safety System</h4>
+                            <p>Automatic protection mechanisms built-in for uncompromised clinical safety.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item fade-in">
+                        <div class="feature-icon">📊</div>
+                        <div class="feature-text">
+                            <h4>Instant Live Report Printing</h4>
+                            <p>Real-time documentation for efficient and accurate patient records.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item fade-in">
+                        <div class="feature-icon">🖥️</div>
+                        <div class="feature-text">
+                            <h4>Fully Controlled Operation</h4>
+                            <p>Complete digital control interface for medical professionals.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-          <label>Phone Number *</label>
-          <input type="tel" name="phone" placeholder="+91 00000 00000" required>
+
+        <!-- Water System -->
+        <div class="water-section" style="margin-top: 5rem; border-radius: 1.5rem;">
+            <p class="section-tag" style="justify-content: center; margin-bottom: 0.8rem;">Pure Water. Pure Safety.</p>
+            <h2>7-Stage <span>Water Purification</span></h2>
+            <p class="lead-text" style="margin: 0 auto 0; text-align: center;">
+                Ensuring medical-grade water quality for every session. Safety is not optional — it's engineered.
+            </p>
+            <div class="filtration-steps">
+                <div class="filter-step fade-in">
+                    <div class="filter-dot">🪨</div>
+                    <div class="filter-label">Sediment</div>
+                </div>
+                <div class="filter-step fade-in">
+                    <div class="filter-dot">🔲</div>
+                    <div class="filter-label">Pre<br>Carbon</div>
+                </div>
+                <div class="filter-step fade-in">
+                    <div class="filter-dot">⬛</div>
+                    <div class="filter-label">Post<br>Carbon</div>
+                </div>
+                <div class="filter-step fade-in">
+                    <div class="filter-dot">🔘</div>
+                    <div class="filter-label">GAC<br>Carbon</div>
+                </div>
+                <div class="filter-step fade-in">
+                    <div class="filter-dot">☀️</div>
+                    <div class="filter-label">UV</div>
+                </div>
+                <div class="filter-step fade-in">
+                    <div class="filter-dot">🔬</div>
+                    <div class="filter-label">UF</div>
+                </div>
+                <div class="filter-step fade-in">
+                    <div class="filter-dot">💧</div>
+                    <div class="filter-label">Scale<br>Free</div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-          <label>Email <span class="form-optional">(optional)</span></label>
-          <input type="email" name="email" placeholder="you@example.com">
+
+        <!-- Benefits -->
+        <div style="margin-top: 5rem;">
+            <div class="benefits-header">
+                <p class="section-tag" style="justify-content: center;">Why Choose Colontech?</p>
+                <h2>Key Benefits for <span>Patients & Clinics</span></h2>
+                <p class="lead-text" style="margin: 0 auto;">
+                    Every feature is developed to provide maximum patient comfort with uncompromised safety and
+                    measurable clinical outcomes.
+                </p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card fade-in">
+                    <div class="benefit-num">01</div>
+                    <h3>Improved Digestive Health</h3>
+                    <p>Supports smoother bowel movements and reduces bloating for lasting digestive comfort.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-num">02</div>
+                    <h3>Enhanced Nutrient Absorption</h3>
+                    <p>Helps the body absorb nutrients more efficiently after thorough colon cleansing.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-num">03</div>
+                    <h3>Increased Energy Levels</h3>
+                    <p>Patients often report feeling lighter and revitalized following treatment sessions.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-num">04</div>
+                    <h3>Constipation Relief</h3>
+                    <p>Effective support in chronic constipation management and fecal impaction cases.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-num">05</div>
+                    <h3>Pre-Procedure Preparation</h3>
+                    <p>Ideal for pre-colonoscopy prep, surgical bowel preparation, and imaging procedures.</p>
+                </div>
+                <div class="benefit-card fade-in">
+                    <div class="benefit-num">06</div>
+                    <h3>Clinic Revenue Opportunity</h3>
+                    <p>Adds a modern, in-demand wellness service to your facility with professional clinical finish.</p>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-          <label>Company / Organisation Name <span class="form-optional">(optional)</span></label>
-          <input type="text" name="organisation" placeholder="Hospital / Clinic / Institution">
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="contact-layout">
+            <div class="contact-info">
+                <p class="section-tag">Reach Out</p>
+                <h2>Let's Build a<br><span>Healthier Tomorrow</span><br>Together</h2>
+                <p class="lead-text">
+                    Ready to bring advanced colon hydrotherapy to your clinic?
+                    Contact our team to learn more about the Colontech Medical system.
+                </p>
+
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">📍</div>
+                    <div class="contact-detail-text">
+                        <h4>Address</h4>
+                        <a href="https://maps.app.goo.gl/1kxrueu4LpV3Wo2eA"
+                            target="https://maps.app.goo.gl/1kxrueu4LpV3Wo2eA">B-36, Dev I-land Industrial Estate, Nr.
+                            Zaveri Estate,<br>
+                            Odhav Industrial Estate, Kathwada,<br>
+                            Ahmedabad, Gujarat – 382430</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">📞</div>
+                    <div class="contact-detail-text">
+                        <h4>Phone</h4>
+                        <a href="tel:+919898226884">+91 98982 26884</a><br>
+                        <a href="tel:+919712133343">+91 97121 33343</a>
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <div class="contact-detail-icon">🌐</div>
+                    <div class="contact-detail-text">
+                        <h4>Website</h4>
+                        <a href="https://www.colontechmedical.com" target="_blank">www.colontechmedical.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrap fade-in">
+                <div class="form-title">Send an Enquiry</div>
+                <p class="form-subtitle">Fill in your details and we'll get back to you shortly via WhatsApp.</p>
+
+                <form id="contactForm" onsubmit="submitForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name *</label>
+                            <input type="text" name="firstName" placeholder="First name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name *</label>
+                            <input type="text" name="lastName" placeholder="Last name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number *</label>
+                        <input type="tel" name="phone" placeholder="Enter 10 digit number" pattern="[0-9]{10}"
+                            maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span class="form-optional">(optional)</span></label>
+                        <input type="email" name="email" placeholder="you@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Company / Organisation Name <span class="form-optional">(optional)</span></label>
+                        <input type="text" name="organisation" placeholder="Hospital / Clinic / Institution">
+                    </div>
+                    <div class="form-group">
+                        <label>Any Other Information <span class="form-optional">(optional)</span></label>
+                        <textarea name="message" placeholder="Tell us anything else you'd like us to know…"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                        </svg>
+                        Submit via WhatsApp
+                    </button>
+                    <p class="form-note">Clicking submit will open WhatsApp with your enquiry pre-filled to our team.
+                    </p>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-          <label>Any Other Information <span class="form-optional">(optional)</span></label>
-          <textarea name="message" placeholder="Tell us anything else you'd like us to know…"></textarea>
-        </div>
-        <button type="submit" class="btn-submit">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-          </svg>
-          Submit via WhatsApp
-        </button>
-        <p class="form-note">Clicking submit will open WhatsApp with your enquiry pre-filled to our team.</p>
-      </form>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">Colontech Medical</div>
-  <ul class="footer-links">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="https://www.colontechmedical.com" target="_blank">Website</a></li>
-  </ul>
-  <p class="footer-copy">© 2025 Colontech Medical. All rights reserved.</p>
-</footer>
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-brand">Colontech Medical</div>
+        <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="https://www.colontechmedical.com" target="_blank">Website</a></li>
+        </ul>
+        <p class="footer-copy">© 2025 Colontech Medical. All rights reserved.</p>
+    </footer>
 
-<!-- TOAST -->
-<div id="toast">✅ Redirecting to WhatsApp…</div>
+    <!-- TOAST -->
+    <div id="toast">✅ Redirecting to WhatsApp…</div>
 
-<script>
-  // Hamburger
-  function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('open');
-  }
+    <script>
+        // Hamburger
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
 
-  // Close menu on link click
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('navLinks').classList.remove('open');
-    });
-  });
+        // Close menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
 
-  // Scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.12 });
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+        }, { threshold: 0.12 });
 
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Nav bg on scroll
-  window.addEventListener('scroll', () => {
-    const nav = document.getElementById('navbar');
-    nav.style.background = window.scrollY > 60
-      ? 'rgba(10,14,42,0.97)' : 'rgba(10,14,42,0.85)';
-  });
+        // Nav bg on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            nav.style.background = window.scrollY > 60
+                ? 'rgba(10,14,42,0.97)' : 'rgba(10,14,42,0.85)';
+        });
 
-  // ── CONFIGURATION ── paste your Google Apps Script URL below ──
-  const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxW3N9nnRX5dlhnBxJX--qCEO3lfQacIcE1rWxeblzGF8bt8n7Ga23wBziQ3mNDUCyWcQ/exec';
-  const WA_NUMBER        = '919898226884';
-  // ────────────────────────────────────────────────────────────────
+        // ── CONFIGURATION ── paste your Google Apps Script URL below ──
+        const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxW3N9nnRX5dlhnBxJX--qCEO3lfQacIcE1rWxeblzGF8bt8n7Ga23wBziQ3mNDUCyWcQ/exec';
+        const WA_NUMBER = '919898226884';
+        // ────────────────────────────────────────────────────────────────
 
-  async function submitForm(e) {
-    e.preventDefault();
-    const f = e.target;
+        async function submitForm(e) {
+            e.preventDefault();
+            const f = e.target;
 
-    const firstName    = f.firstName.value.trim();
-    const lastName     = f.lastName.value.trim();
-    const phone        = f.phone.value.trim();
-    const email        = f.email.value.trim();
-    const organisation = f.organisation.value.trim();
-    const message      = f.message.value.trim();
+            const firstName = f.firstName.value.trim();
+            const lastName = f.lastName.value.trim();
+            const phone = f.phone.value.trim();
+            const email = f.email.value.trim();
+            const organisation = f.organisation.value.trim();
+            const message = f.message.value.trim();
 
-    // ── 1. Disable button & show loading state ──
-    const btn = f.querySelector('.btn-submit');
-    btn.disabled = true;
-    btn.innerHTML = `<span class="spinner"></span> Submitting…`;
+            // ── 1. Disable button & show loading state ──
+            const btn = f.querySelector('.btn-submit');
+            btn.disabled = true;
+            btn.innerHTML = `<span class="spinner"></span> Submitting…`;
 
-    // ── 2. Save to Google Sheet ──
-    try {
-      await fetch(GOOGLE_SHEET_URL, {
-        method: 'POST',
-        mode: 'no-cors',           // Apps Script requires no-cors
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, phone, email, organisation, message })
-      });
-    } catch (err) {
-      console.warn('Sheet save failed:', err);
-      // We still proceed to WhatsApp even if sheet fails
-    }
+            // ── 2. Save to Google Sheet ──
+            try {
+                await fetch(GOOGLE_SHEET_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',           // Apps Script requires no-cors
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ firstName, lastName, phone, email, organisation, message })
+                });
+            } catch (err) {
+                console.warn('Sheet save failed:', err);
+                // We still proceed to WhatsApp even if sheet fails
+            }
 
-    // ── 3. Show success toast ──
-    const toast = document.getElementById('toast');
-    toast.textContent = '✅ Saved! Opening WhatsApp…';
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 4000);
+            // ── 3. Show success toast ──
+            const toast = document.getElementById('toast');
+            toast.textContent = '✅ Saved! Opening WhatsApp…';
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 4000);
 
-    // ── 4. Build & open WhatsApp message ──
-    const waMsg =
-      `Hello Colontech Medical! 👋\n\n` +
-      `I would like to enquire about your Advanced Colon Hydrotherapy System.\n\n` +
-      `📋 *Enquiry Details:*\n` +
-      `• Name: ${firstName} ${lastName}\n` +
-      `• Contact: ${phone}\n` +
-      (email        ? `• Email: ${email}\n`                        : '') +
-      (organisation ? `• Company / Organisation: ${organisation}\n` : '') +
-      (message      ? `• Additional Info: ${message}\n`             : '') +
-      `\nKindly get in touch at your earliest convenience. Thank you!`;
+            // ── 4. Build & open WhatsApp message ──
+            const waMsg =
+                `Hello Colontech Medical! 👋\n\n` +
+                `I would like to enquire about your Advanced Colon Hydrotherapy System.\n\n` +
+                `📋 *Enquiry Details:*\n` +
+                `• Name: ${firstName} ${lastName}\n` +
+                `• Contact: ${phone}\n` +
+                (email ? `• Email: ${email}\n` : '') +
+                (organisation ? `• Company / Organisation: ${organisation}\n` : '') +
+                (message ? `• Additional Info: ${message}\n` : '') +
+                `\nKindly get in touch at your earliest convenience. Thank you!`;
 
-    setTimeout(() => window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}`, '_blank'), 600);
+            setTimeout(() => window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(waMsg)}`, '_blank'), 600);
 
-    // ── 5. Reset form & button ──
-    f.reset();
-    btn.disabled = false;
-    btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Submit via WhatsApp`;
-  }
-</script>
+            // ── 5. Reset form & button ──
+            f.reset();
+            btn.disabled = false;
+            btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Submit via WhatsApp`;
+        }
+    </script>
 </body>
+
 </html>
